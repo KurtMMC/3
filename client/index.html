@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="3D TerrainGen Studio - Procedural terrain generation with wave interference and harmonic noise">
+    <title>3D TerrainGen Studio</title>
+
+    <!-- Babylon.js CDN -->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">▲</span>
+                <span class="logo-text">3D TerrainGen Studio</span>
+            </div>
+            <div class="header-subtitle">Interactive 3D Terrain Visualization</div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar Controls -->
+            <aside class="sidebar">
+                <!-- Basic Settings -->
+                <section class="control-section">
+                    <h3 class="section-title">Basic Settings</h3>
+
+                    <div class="control-group">
+                        <label for="mapSize">Map Size</label>
+                        <select id="mapSize" class="control-select">
+                            <option value="64">64 × 64</option>
+                            <option value="128">128 × 128</option>
+                            <option value="256" selected>256 × 256</option>
+                            <option value="512">512 × 512</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="seed">Seed</label>
+                        <div class="input-with-button">
+                            <input type="number" id="seed" class="control-input" value="42">
+                            <button id="randomSeed" class="btn-icon" title="Random Seed">🎲</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Noise Settings -->
+                <section class="control-section">
+                    <h3 class="section-title">Noise Settings</h3>
+
+                    <div class="control-group">
+                        <label for="noiseAlgorithm">Algorithm</label>
+                        <select id="noiseAlgorithm" class="control-select">
+                            <option value="wave">Wave Interference</option>
+                            <option value="harmonic">Harmonic Functions</option>
+                            <option value="perlin">Perlin Noise</option>
+                            <option value="simplex" selected>Simplex Noise</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="fractalType">Fractal Type</label>
+                        <select id="fractalType" class="control-select">
+                            <option value="none">None</option>
+                            <option value="fbm" selected>FBM (Standard)</option>
+                            <option value="ridged">Ridged</option>
+                            <option value="billow">Billow</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="octaves">Octaves <span class="value-display" id="octavesValue">6</span></label>
+                        <input type="range" id="octaves" class="control-slider" min="1" max="10" value="6">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="frequency">Frequency <span class="value-display"
+                                id="frequencyValue">3.0</span></label>
+                        <input type="range" id="frequency" class="control-slider" min="0.5" max="10" step="0.1"
+                            value="3">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="persistence">Persistence <span class="value-display"
+                                id="persistenceValue">0.5</span></label>
+                        <input type="range" id="persistence" class="control-slider" min="0.1" max="1" step="0.05"
+                            value="0.5">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="lacunarity">Lacunarity <span class="value-display"
+                                id="lacunarityValue">2.0</span></label>
+                        <input type="range" id="lacunarity" class="control-slider" min="1" max="4" step="0.1" value="2">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="amplitude">Height Scale <span class="value-display"
+                                id="amplitudeValue">1.0</span></label>
+                        <input type="range" id="amplitude" class="control-slider" min="0.1" max="2" step="0.1"
+                            value="1">
+                    </div>
+                </section>
+
+                <!-- Erosion Settings -->
+                <section class="control-section">
+                    <h3 class="section-title">Erosion</h3>
+
+                    <div class="toggle-group">
+                        <button id="toggleHydraulic" class="toggle-btn">Hydraulic</button>
+                        <button id="toggleThermal" class="toggle-btn">Thermal</button>
+                    </div>
+
+                    <div class="control-group erosion-options" id="erosionOptions" style="display: none;">
+                        <label for="erosionIterations">Iterations <span class="value-display"
+                                id="erosionIterationsValue">30000</span></label>
+                        <input type="range" id="erosionIterations" class="control-slider" min="5000" max="100000"
+                            step="5000" value="30000">
+
+                        <label for="erosionStrength" style="margin-top: 12px;">Strength <span class="value-display"
+                                id="erosionStrengthValue">0.3</span></label>
+                        <input type="range" id="erosionStrength" class="control-slider" min="0.1" max="1" step="0.1"
+                            value="0.3">
+                    </div>
+                </section>
+
+                <!-- Layer Mixing -->
+                <section class="control-section">
+                    <h3 class="section-title">Layer Mixing</h3>
+
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="enableSecondaryNoise" class="control-checkbox">
+                            Enable Secondary Layer
+                        </label>
+                    </div>
+
+                    <div id="layerMixingOptions" style="display: none;">
+                        <div class="control-group">
+                            <label for="secondaryAlgorithm">Secondary Algorithm</label>
+                            <select id="secondaryAlgorithm" class="control-select">
+                                <option value="wave">Wave Interference</option>
+                                <option value="harmonic">Harmonic Functions</option>
+                                <option value="perlin" selected>Perlin Noise</option>
+                                <option value="simplex">Simplex Noise</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="secondaryFrequency">Secondary Freq <span class="value-display"
+                                    id="secondaryFrequencyValue">5.0</span></label>
+                            <input type="range" id="secondaryFrequency" class="control-slider" min="0.5" max="15"
+                                step="0.5" value="5">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="secondaryAmplitude">Secondary Amp <span class="value-display"
+                                    id="secondaryAmplitudeValue">0.5</span></label>
+                            <input type="range" id="secondaryAmplitude" class="control-slider" min="0.1" max="1.5"
+                                step="0.1" value="0.5">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="blendMode">Blend Mode</label>
+                            <select id="blendMode" class="control-select">
+                                <option value="add" selected>Add</option>
+                                <option value="multiply">Multiply</option>
+                                <option value="lerp">Lerp (Mix)</option>
+                                <option value="min">Min</option>
+                                <option value="max">Max</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="blendWeight">Blend Weight <span class="value-display"
+                                    id="blendWeightValue">0.5</span></label>
+                            <input type="range" id="blendWeight" class="control-slider" min="0" max="1" step="0.05"
+                                value="0.5">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Generate Button -->
+                <button id="generateBtn" class="btn-generate">
+                    <span class="btn-text">Generate Terrain</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span> Generating...
+                    </span>
+                </button>
+
+                <!-- Export Section -->
+                <section class="control-section export-section" id="exportSection" style="display: none;">
+                    <h3 class="section-title">Export</h3>
+                    <div class="export-buttons">
+                        <button id="exportOBJ" class="btn-export" title="For Blender, Unity, Godot">
+                            📦 OBJ Mesh
+                        </button>
+                        <button id="exportRAW" class="btn-export" title="For Unity Terrain">
+                            🗺️ RAW (Unity)
+                        </button>
+                        <button id="exportPNG" class="btn-export" title="Heightmap + Normal Map">
+                            🖼️ PNG Maps
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Status -->
+                <div id="status" class="status-message"></div>
+            </aside>
+
+            <!-- Viewport Area -->
+            <main class="viewport-area">
+                <!-- 3D Viewport -->
+                <div class="viewport-container">
+                    <canvas id="renderCanvas"></canvas>
+                    <div class="viewport-overlay" id="viewportOverlay">
+                        <p>Click "Generate Terrain" to create a 3D landscape</p>
+                    </div>
+                </div>
+
+                <!-- Output Maps -->
+                <section class="output-maps">
+                    <h3 class="section-title">Output Maps (2D)</h3>
+                    <div class="maps-grid">
+                        <div class="map-card">
+                            <div class="map-preview" id="heightmapPreview">
+                                <span class="map-placeholder">Heightmap</span>
+                            </div>
+                            <span class="map-label">Heightmap</span>
+                        </div>
+                        <div class="map-card">
+                            <div class="map-preview" id="normalMapPreview">
+                                <span class="map-placeholder">Normal Map</span>
+                            </div>
+                            <span class="map-label">Normal Map</span>
+                        </div>
+                        <div class="map-card">
+                            <div class="map-preview" id="splatMapPreview">
+                                <span class="map-placeholder">Splat Map</span>
+                            </div>
+                            <span class="map-label">Splat Map</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="terrain-viewer.js"></script>
+    <script src="controls.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

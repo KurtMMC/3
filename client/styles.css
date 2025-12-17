@@ -1,0 +1,606 @@
+/* ========================================
+   3D TerrainGen Studio - Styles
+   Modern dark theme with glassmorphism
+======================================== */
+
+:root {
+    /* Colors */
+    --bg-primary: #0d0d0d;
+    --bg-secondary: #141414;
+    --bg-tertiary: #1a1a1a;
+    --bg-card: rgba(30, 30, 30, 0.8);
+    --bg-glass: rgba(255, 255, 255, 0.03);
+
+    --accent-primary: #4ade80;
+    --accent-secondary: #22c55e;
+    --accent-glow: rgba(74, 222, 128, 0.3);
+
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-focus: rgba(74, 222, 128, 0.5);
+
+    /* Spacing */
+    --sidebar-width: 280px;
+    --header-height: 56px;
+    --gap-sm: 8px;
+    --gap-md: 16px;
+    --gap-lg: 24px;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 20px var(--accent-glow);
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ========================================
+   Layout
+======================================== */
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+    padding: 0 var(--gap-lg);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+}
+
+.logo-icon {
+    color: var(--accent-primary);
+    font-size: 20px;
+}
+
+.logo-text {
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+}
+
+.header-subtitle {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* ========================================
+   Sidebar
+======================================== */
+
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100%;
+    padding: var(--gap-lg);
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-lg);
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+/* Control Sections */
+.control-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+}
+
+.section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    padding-bottom: var(--gap-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Control Groups */
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.control-group label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.value-display {
+    color: var(--accent-primary);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Inputs */
+.control-select,
+.control-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.control-select:focus,
+.control-input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.control-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2371717a' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+}
+
+.input-with-button {
+    display: flex;
+    gap: var(--gap-sm);
+}
+
+.input-with-button .control-input {
+    flex: 1;
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all var(--transition-fast);
+}
+
+.btn-icon:hover {
+    background: var(--bg-glass);
+    border-color: var(--accent-primary);
+}
+
+/* Sliders */
+.control-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.control-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.control-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: var(--shadow-glow);
+}
+
+.control-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--accent-primary);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Toggle Buttons */
+.toggle-group {
+    display: flex;
+    gap: var(--gap-sm);
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 10px 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.toggle-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+}
+
+.toggle-btn.active {
+    background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+    border-color: transparent;
+    color: #000;
+    font-weight: 500;
+}
+
+/* Generate Button */
+.btn-generate {
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+    border: none;
+    border-radius: 10px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+}
+
+.btn-generate::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2));
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.btn-generate:hover::before {
+    opacity: 1;
+}
+
+.btn-generate:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-generate:active {
+    transform: translateY(0);
+}
+
+.btn-generate:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-sm);
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Status Message */
+.status-message {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    min-height: 20px;
+}
+
+.status-message.error {
+    color: #ef4444;
+}
+
+.status-message.success {
+    color: var(--accent-primary);
+}
+
+/* Export Buttons */
+.export-section {
+    margin-top: var(--gap-md);
+}
+
+.export-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+}
+
+.btn-export {
+    width: 100%;
+    padding: 10px 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: left;
+}
+
+.btn-export:hover {
+    background: var(--bg-glass);
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+}
+
+.btn-export:active {
+    transform: scale(0.98);
+}
+
+/* ========================================
+   Viewport Area
+======================================== */
+
+.viewport-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--gap-lg);
+    gap: var(--gap-lg);
+    overflow: hidden;
+}
+
+/* 3D Viewport */
+.viewport-container {
+    flex: 1;
+    position: relative;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+#renderCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    outline: none;
+}
+
+.viewport-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    color: var(--text-muted);
+    font-size: 16px;
+    transition: opacity var(--transition-normal);
+}
+
+.viewport-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ========================================
+   Output Maps
+======================================== */
+
+.output-maps {
+    flex-shrink: 0;
+}
+
+.output-maps .section-title {
+    margin-bottom: var(--gap-md);
+}
+
+.maps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-md);
+}
+
+.map-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+}
+
+.map-preview {
+    aspect-ratio: 1;
+    background: var(--bg-tertiary);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+}
+
+.map-preview:hover {
+    border-color: var(--accent-primary);
+}
+
+.map-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.map-placeholder {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.map-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* ========================================
+   Responsive
+======================================== */
+
+@media (max-width: 1024px) {
+    .maps-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .map-preview {
+        aspect-ratio: 4/3;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 50vh;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .viewport-area {
+        min-height: 50vh;
+    }
+}
+
+/* ========================================
+   Animations
+======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.control-section {
+    animation: slideUp 0.4s ease backwards;
+}
+
+.control-section:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.control-section:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.control-section:nth-child(3) {
+    animation-delay: 0.3s;
+}
