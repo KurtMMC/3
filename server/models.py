@@ -10,45 +10,45 @@ class TerrainRequest(BaseModel):
     """Request model for terrain generation"""
     
     # Basic settings
-    seed: int = Field(default=42, description="Random seed for reproducible generation")
-    size: int = Field(default=256, ge=32, le=1024, description="Terrain size (32-1024)")
+    seed: int = Field(default=42, description="Random seed for reproducible generation. Same seed + same settings = same terrain.")
+    size: int = Field(default=256, ge=32, le=1024, description="Resolution of the terrain (width & height). Must be between 32 and 1024.")
     
     # Noise settings
     noise_algorithm: Literal["wave", "harmonic", "perlin", "simplex"] = Field(
         default="simplex", 
-        description="Base noise algorithm"
+        description="The base noise algorithm used for terrain generation."
     )
-    frequency: float = Field(default=3.0, ge=0.1, le=20.0, description="Base frequency")
-    amplitude: float = Field(default=1.0, ge=0.1, le=2.0, description="Height amplitude")
-    octaves: int = Field(default=6, ge=1, le=10, description="Noise octaves for detail")
-    persistence: float = Field(default=0.5, ge=0.1, le=1.0, description="Amplitude falloff per octave")
-    lacunarity: float = Field(default=2.0, ge=1.0, le=4.0, description="Frequency multiplier per octave")
+    frequency: float = Field(default=3.0, ge=0.1, le=20.0, description="Base frequency of the noise. Higher values = more zoomed out.")
+    amplitude: float = Field(default=1.0, ge=0.1, le=2.0, description="Height amplitude (vertical scale).")
+    octaves: int = Field(default=6, ge=1, le=10, description="Number of noise layers (detail). Higher values = more fine detail.")
+    persistence: float = Field(default=0.5, ge=0.1, le=1.0, description="Amplitude falloff per octave. Lower = smoother details.")
+    lacunarity: float = Field(default=2.0, ge=1.0, le=4.0, description="Frequency multiplier per octave.")
     
     # Fractal settings
     fractal_type: Literal["none", "fbm", "ridged", "billow"] = Field(
         default="fbm",
-        description="Fractal processing type"
+        description="Fractal type determining how octaves are combined. 'ridged' creates sharp peaks, 'billow' creates rounded hills."
     )
     
     # Erosion settings
-    enable_hydraulic: bool = Field(default=False, description="Enable hydraulic erosion")
-    enable_thermal: bool = Field(default=False, description="Enable thermal erosion")
-    erosion_iterations: int = Field(default=30000, ge=1000, le=100000, description="Erosion iterations")
-    erosion_strength: float = Field(default=0.3, ge=0.1, le=1.0, description="Erosion intensity")
+    enable_hydraulic: bool = Field(default=False, description="Simulate water erosion to create river channels and sediment.")
+    enable_thermal: bool = Field(default=False, description="Simulate thermal erosion (material slippage) to smooth steep slopes.")
+    erosion_iterations: int = Field(default=30000, ge=1000, le=100000, description="Number of erosion simulation drops/steps.")
+    erosion_strength: float = Field(default=0.3, ge=0.1, le=1.0, description="Intensity of the erosion effect.")
     
     # Noise Layer Combination
-    enable_secondary_noise: bool = Field(default=False, description="Enable secondary noise layer")
+    enable_secondary_noise: bool = Field(default=False, description="Enable a second independent noise layer to blend with the first.")
     secondary_algorithm: Literal["wave", "harmonic", "perlin", "simplex"] = Field(
         default="perlin",
-        description="Secondary noise algorithm to combine with primary"
+        description="Algorithm for the secondary noise layer."
     )
-    secondary_frequency: float = Field(default=5.0, ge=0.1, le=20.0, description="Secondary noise frequency")
-    secondary_amplitude: float = Field(default=0.5, ge=0.1, le=2.0, description="Secondary noise amplitude")
+    secondary_frequency: float = Field(default=5.0, ge=0.1, le=20.0, description="Frequency for the secondary noise layer.")
+    secondary_amplitude: float = Field(default=0.5, ge=0.1, le=2.0, description="Amplitude for the secondary noise layer.")
     blend_mode: Literal["add", "multiply", "lerp", "min", "max"] = Field(
         default="add",
-        description="How to blend primary and secondary noise"
+        description="How to combine the primary and secondary noise layers."
     )
-    blend_weight: float = Field(default=0.5, ge=0.0, le=1.0, description="Weight for blending (0=primary only, 1=secondary only)")
+    blend_weight: float = Field(default=0.5, ge=0.0, le=1.0, description="Mixing weight (0.0 = primary only, 1.0 = secondary only).")
 
 
 class TerrainResponse(BaseModel):
