@@ -37,7 +37,15 @@ class Controls {
             secondaryFrequency: 5.0,
             secondaryAmplitude: 0.5,
             blendMode: 'add',
-            blendWeight: 0.5
+            blendWeight: 0.5,
+
+            // Phase II — Wave Enhancement (Eq. 2)
+            waveCount: 8,
+            waveIntensity: 0.3,
+
+            // Phase IV — Thermal Erosion (Eq. 5)
+            talusAngle: 0.5,
+            thermalRate: 0.3
         };
     }
 
@@ -62,7 +70,13 @@ class Controls {
             // Layer mixing sliders
             { id: 'secondaryFrequency', prop: 'secondaryFrequency', format: v => parseFloat(v).toFixed(1) },
             { id: 'secondaryAmplitude', prop: 'secondaryAmplitude', format: v => parseFloat(v).toFixed(1) },
-            { id: 'blendWeight', prop: 'blendWeight', format: v => parseFloat(v).toFixed(2) }
+            { id: 'blendWeight', prop: 'blendWeight', format: v => parseFloat(v).toFixed(2) },
+            // Phase II sliders
+            { id: 'waveCount',     prop: 'waveCount',     format: v => parseInt(v) },
+            { id: 'waveIntensity', prop: 'waveIntensity', format: v => parseFloat(v).toFixed(2) },
+            // Phase IV thermal sliders
+            { id: 'talusAngle',   prop: 'talusAngle',   format: v => parseFloat(v).toFixed(2) },
+            { id: 'thermalRate',  prop: 'thermalRate',  format: v => parseFloat(v).toFixed(2) }
         ];
 
         sliders.forEach(({ id, prop, format }) => {
@@ -96,6 +110,14 @@ class Controls {
             if (select) {
                 select.addEventListener('change', (e) => {
                     this.values[prop] = parse(e.target.value);
+
+                    // Show Phase II controls only when wave_combination selected
+                    if (id === 'blendMode') {
+                        const waveOpts = document.getElementById('waveEnhancementOptions');
+                        if (waveOpts) {
+                            waveOpts.style.display = (e.target.value === 'wave_combination') ? 'block' : 'none';
+                        }
+                    }
                 });
             }
         });
@@ -188,7 +210,13 @@ class Controls {
             secondary_frequency: this.values.secondaryFrequency,
             secondary_amplitude: this.values.secondaryAmplitude,
             blend_mode: this.values.blendMode,
-            blend_weight: this.values.blendWeight
+            blend_weight: this.values.blendWeight,
+            // Phase II — Wave Enhancement (Eq. 2)
+            wave_count: this.values.waveCount,
+            wave_intensity: this.values.waveIntensity,
+            // Phase IV — Thermal Erosion (Eq. 5)
+            talus_angle: this.values.talusAngle,
+            thermal_rate: this.values.thermalRate
         };
     }
 

@@ -4,6 +4,8 @@ FastAPI application entry point for Terrain Generation Service.
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
 
 from server.routes import router
 
@@ -25,6 +27,11 @@ app.add_middleware(
 
 # Include routes
 app.include_router(router, prefix="/api")
+
+# Serve the client HTML/JS/CSS frontend
+_client_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "client")
+if os.path.isdir(_client_dir):
+    app.mount("/client", StaticFiles(directory=_client_dir), name="client")
 
 
 @app.get("/")

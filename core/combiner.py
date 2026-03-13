@@ -1,6 +1,15 @@
 """
 Noise Combiner for layering and blending multiple noise sources.
-Supports FBM, Ridged, and Billow fractal patterns.
+
+Phase III — Multiplicative-Additive Combination (Eq. 3)
+    H_final(x, y) = P(x, y) + [P(x, y) · ψ(x, y)]
+
+    P  = Phase I base noise map  (primary topology)
+    ψ  = Phase II wave offset     (structural distortion field)
+    P·ψ = Contextual scaling term — restricts sharp wave distortions to
+          high-elevation areas (P ≈ 1) while preserving smooth valleys (P ≈ 0)
+
+Also supports FBM, Ridged, and Billow post-processing fractal patterns.
 """
 
 import numpy as np
@@ -76,6 +85,31 @@ class NoiseCombiner:
         # Normalize result to 0-1
         result = (result - result.min()) / (result.max() - result.min() + 1e-10)
         return result
+
+    @staticmethod
+    def wave_combination(P: np.ndarray, psi: np.ndarray) -> np.ndarray:
+        """
+        Phase III — Multiplicative-Additive Combination (Eq. 3).
+
+        H_final(x, y) = P(x, y) + [P(x, y) · ψ(x, y)]
+
+        The critical innovation: multiplying the wave offset ψ by the base
+        height P makes structural distortions scale relative to existing
+        elevation:
+          - P ≈ 1 (mountains)  →  P·ψ ≈ ψ   (full wave distortion, jagged peaks)
+          - P ≈ 0 (valleys)    →  P·ψ ≈ 0   (near-zero distortion, smooth plains)
+
+        Args:
+            P:   Phase I base noise map, values in [0, 1].
+            psi: Phase II wave offset map from generate_wave_enhancement().
+                 Signed values — NOT pre-normalised.
+
+        Returns:
+            H_final clamped to [0, 1].  We clip rather than min-max normalise
+            to preserve the relative magnitude of the contextual scaling effect.
+        """
+        H = P + (P * psi)          # Eq. 3: additive + multiplicative mask
+        return np.clip(H, 0.0, 1.0)
     
     @staticmethod
     def fbm(

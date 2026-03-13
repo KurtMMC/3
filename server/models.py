@@ -44,11 +44,19 @@ class TerrainRequest(BaseModel):
     )
     secondary_frequency: float = Field(default=5.0, ge=0.1, le=20.0, description="Frequency for the secondary noise layer.")
     secondary_amplitude: float = Field(default=0.5, ge=0.1, le=2.0, description="Amplitude for the secondary noise layer.")
-    blend_mode: Literal["add", "multiply", "lerp", "min", "max"] = Field(
+    blend_mode: Literal["add", "multiply", "lerp", "min", "max", "wave_combination"] = Field(
         default="add",
-        description="How to combine the primary and secondary noise layers."
+        description="How to combine the primary and secondary noise layers. 'wave_combination' applies Phase III Eq. 3: H = P + P·ψ."
     )
-    blend_weight: float = Field(default=0.5, ge=0.0, le=1.0, description="Mixing weight (0.0 = primary only, 1.0 = secondary only).")
+    blend_weight: float = Field(default=0.5, ge=0.0, le=1.0, description="Mixing weight (0.0 = primary only, 1.0 = secondary only). Not used by wave_combination.")
+
+    # Phase II — Wave Enhancement parameters (Eq. 2), used when blend_mode='wave_combination'
+    wave_count: int = Field(default=8, ge=1, le=32, description="Phase II (Eq. 2): Number of superimposed waves (N). Higher = more geological complexity.")
+    wave_intensity: float = Field(default=0.3, ge=0.0, le=2.0, description="Phase II (Eq. 2): Global wave amplitude scalar (α). Controls ridge height.")
+
+    # Phase IV — Thermal erosion parameters (Eq. 5)
+    talus_angle: float = Field(default=0.5, ge=0.01, le=2.0, description="Phase IV (Eq. 5): Slope threshold T for thermal slippage. Lower = more aggressive smoothing.")
+    thermal_rate: float = Field(default=0.3, ge=0.01, le=1.0, description="Phase IV (Eq. 5): Material transfer rate Kr per thermal iteration.")
 
 
 class TerrainResponse(BaseModel):

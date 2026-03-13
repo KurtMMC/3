@@ -57,7 +57,11 @@ async def generate_terrain(request: TerrainRequest):
             secondary_frequency=request.secondary_frequency,
             secondary_amplitude=request.secondary_amplitude,
             blend_mode=request.blend_mode,
-            blend_weight=request.blend_weight
+            blend_weight=request.blend_weight,
+            wave_count=request.wave_count,
+            wave_intensity=request.wave_intensity,
+            talus_angle=request.talus_angle,
+            thermal_rate=request.thermal_rate,
         )
         
         # Generate terrain
@@ -112,7 +116,11 @@ async def export_terrain(request: TerrainRequest):
             secondary_frequency=request.secondary_frequency,
             secondary_amplitude=request.secondary_amplitude,
             blend_mode=request.blend_mode,
-            blend_weight=request.blend_weight
+            blend_weight=request.blend_weight,
+            wave_count=request.wave_count,
+            wave_intensity=request.wave_intensity,
+            talus_angle=request.talus_angle,
+            thermal_rate=request.thermal_rate,
         )
         
         # Generate terrain
