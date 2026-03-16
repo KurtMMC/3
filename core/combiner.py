@@ -108,7 +108,10 @@ class NoiseCombiner:
             H_final clamped to [0, 1].  We clip rather than min-max normalise
             to preserve the relative magnitude of the contextual scaling effect.
         """
-        H = P + (P * psi)          # Eq. 3: additive + multiplicative mask
+        # Eq. 3: additive + multiplicative mask with smoother power curve
+        # P**2 creates a gentler transition into the high elevation regions,
+        # preventing the raw offset from causing extreme artificial spikes.
+        H = P + ((P ** 2) * psi * 0.5)
         return np.clip(H, 0.0, 1.0)
     
     @staticmethod

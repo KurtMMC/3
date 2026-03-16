@@ -42,7 +42,7 @@ class TerrainRequest(BaseModel):
         default="perlin",
         description="Algorithm for the secondary noise layer."
     )
-    secondary_frequency: float = Field(default=5.0, ge=0.1, le=20.0, description="Frequency for the secondary noise layer.")
+    secondary_frequency: float = Field(default=2.5, ge=0.1, le=3.0, description="Frequency for the secondary noise layer.")
     secondary_amplitude: float = Field(default=0.5, ge=0.1, le=2.0, description="Amplitude for the secondary noise layer.")
     blend_mode: Literal["add", "multiply", "lerp", "min", "max", "wave_combination"] = Field(
         default="add",

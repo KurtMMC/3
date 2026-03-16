@@ -133,10 +133,13 @@ class NoiseGenerator:
             # Dot product  kⱼ · p  =  kx·x + ky·y  (vectorised over grid)
             dot = kx_j * xx + ky_j * yy
 
-            # Accumulate  α · sin(kⱼ · p + δⱼ)
-            psi += alpha * np.sin(dot + delta_j)
+            # Accumulate smoother waves using squared sine for ridges
+            wave_val = np.sin(dot + delta_j)
+            # Soften the extreme peaks by pulling down the sharp edges
+            psi += alpha * (np.sign(wave_val) * (np.abs(wave_val) ** 1.5))
 
-        return psi   # signed offset, range ≈ [-N·α,  N·α] before contextual use
+        # Attenuate the overall psi field to prevent runaway spikes
+        return psi * 0.6
 
     # ------------------------------------------------------------------
     # Phase I — fBm Base Noise Algorithms

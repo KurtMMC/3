@@ -34,7 +34,7 @@ class Controls {
             // Layer Mixing
             enableSecondaryNoise: false,
             secondaryAlgorithm: 'perlin',
-            secondaryFrequency: 5.0,
+            secondaryFrequency: 2.5,
             secondaryAmplitude: 0.5,
             blendMode: 'add',
             blendWeight: 0.5,
@@ -72,11 +72,11 @@ class Controls {
             { id: 'secondaryAmplitude', prop: 'secondaryAmplitude', format: v => parseFloat(v).toFixed(1) },
             { id: 'blendWeight', prop: 'blendWeight', format: v => parseFloat(v).toFixed(2) },
             // Phase II sliders
-            { id: 'waveCount',     prop: 'waveCount',     format: v => parseInt(v) },
+            { id: 'waveCount', prop: 'waveCount', format: v => parseInt(v) },
             { id: 'waveIntensity', prop: 'waveIntensity', format: v => parseFloat(v).toFixed(2) },
             // Phase IV thermal sliders
-            { id: 'talusAngle',   prop: 'talusAngle',   format: v => parseFloat(v).toFixed(2) },
-            { id: 'thermalRate',  prop: 'thermalRate',  format: v => parseFloat(v).toFixed(2) }
+            { id: 'talusAngle', prop: 'talusAngle', format: v => parseFloat(v).toFixed(2) },
+            { id: 'thermalRate', prop: 'thermalRate', format: v => parseFloat(v).toFixed(2) }
         ];
 
         sliders.forEach(({ id, prop, format }) => {

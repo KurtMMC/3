@@ -135,11 +135,15 @@
                         <input type="range" id="erosionStrength" class="control-slider" min="0.1" max="1" step="0.1"
                             value="0.3">
 
-                        <label for="talusAngle" style="margin-top: 12px;">Talus Angle (T) <span class="value-display" id="talusAngleValue">0.50</span></label>
-                        <input type="range" id="talusAngle" class="control-slider" min="0.01" max="2" step="0.05" value="0.5">
+                        <label for="talusAngle" style="margin-top: 12px;">Talus Angle (T) <span class="value-display"
+                                id="talusAngleValue">0.50</span></label>
+                        <input type="range" id="talusAngle" class="control-slider" min="0.01" max="2" step="0.05"
+                            value="0.5">
 
-                        <label for="thermalRate" style="margin-top: 12px;">Thermal Rate (Kr) <span class="value-display" id="thermalRateValue">0.30</span></label>
-                        <input type="range" id="thermalRate" class="control-slider" min="0.01" max="1" step="0.05" value="0.3">
+                        <label for="thermalRate" style="margin-top: 12px;">Thermal Rate (Kr) <span class="value-display"
+                                id="thermalRateValue">0.30</span></label>
+                        <input type="range" id="thermalRate" class="control-slider" min="0.01" max="1" step="0.05"
+                            value="0.3">
                     </div>
                 </section>
 
@@ -167,9 +171,9 @@
 
                         <div class="control-group">
                             <label for="secondaryFrequency">Secondary Freq <span class="value-display"
-                                    id="secondaryFrequencyValue">5.0</span></label>
-                            <input type="range" id="secondaryFrequency" class="control-slider" min="0.5" max="15"
-                                step="0.5" value="5">
+                                    id="secondaryFrequencyValue">2.5</span></label>
+                            <input type="range" id="secondaryFrequency" class="control-slider" min="0.5" max="3"
+                                step="0.5" value="2.5">
                         </div>
 
                         <div class="control-group">
@@ -201,12 +205,16 @@
                         <!-- Phase II controls — visible when wave_combination selected -->
                         <div id="waveEnhancementOptions" style="display:none;">
                             <div class="control-group">
-                                <label for="waveCount">Wave Count (N) <span class="value-display" id="waveCountValue">8</span></label>
-                                <input type="range" id="waveCount" class="control-slider" min="1" max="32" step="1" value="8">
+                                <label for="waveCount">Wave Count (N) <span class="value-display"
+                                        id="waveCountValue">8</span></label>
+                                <input type="range" id="waveCount" class="control-slider" min="1" max="32" step="1"
+                                    value="8">
                             </div>
                             <div class="control-group">
-                                <label for="waveIntensity">Wave Intensity (α) <span class="value-display" id="waveIntensityValue">0.30</span></label>
-                                <input type="range" id="waveIntensity" class="control-slider" min="0" max="2" step="0.05" value="0.3">
+                                <label for="waveIntensity">Wave Intensity (α) <span class="value-display"
+                                        id="waveIntensityValue">0.30</span></label>
+                                <input type="range" id="waveIntensity" class="control-slider" min="0" max="2"
+                                    step="0.05" value="0.3">
                             </div>
                         </div>
                     </div>
