@@ -1,0 +1,40 @@
+﻿============================================================
+ SYSTEM EVALUATION SUMMARY (Section 3.6)
+============================================================
+--- Algorithmic and Structural Metrics (50 Samples) ---
+
+1. Structural Complexity (Spectral Analysis)
+  fBm Baseline PSD Slope ($\delta$): -3.3070
+  Wave-Harmonic PSD Slope ($\delta$): -3.3432
+  Result: Wave-Harmonic introduced a +11.13% deviation in high-frequency energy.
+
+2. Feature Diversity (Roughness Index via Laplacian)
+  Low-Elevation Regions ($P \le 0.5$):
+    fBm Roughness: 0.011900
+    Wave-Harmonic Roughness: 0.011353
+  High-Elevation Regions ($P > 0.5$):
+    fBm Roughness: 0.011884
+    Wave-Harmonic Roughness: 0.012664
+  Differential Validation: Wave-Harmonic peaks are 1.12x rougher than its valleys,
+    proving the Multiplicative Mask (P┬╖╧ê) successfully targets jagged peaks while preserving plains.
+
+--- Service and Performance Metrics (Resolution: 256x256) ---
+  Running latency test loop...
+
+1. Capacity Tracking
+  Peak Memory Usage: 14.76 MB
+
+2. System Speed
+  Average Latency (L): 130.77 ms
+  Throughput (Th): 0.5012 MP/s
+
+3. Theoretical Time Complexity (Big O) per phase:
+  Phase I (fBm Accumulation):       O(N^2 * k)      [k = octaves]
+  Phase II (Wave Interference):     O(N^2 * J)      [J = wave_count]
+  Phase III (Combination Logic):    O(N^2)          [Constant-time mask matrix operation]
+  Phase IV (Thermal Erosion):       O(N^2 * I)      [I = thermal erosion iterations]
+  -------------------------------------------------------------
+  Total Algorithmic Complexity:     O(N^2 * (k + J + 1 + I))
+============================================================
+ Evaluation Complete.
+============================================================

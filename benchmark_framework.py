@@ -269,6 +269,5 @@ def main(resolutions=(256, 512, 1024), n_cycles: int = 15):
 
 
 if __name__ == "__main__":
-    # Quick run: 256 and 512 at n=15 for normal use.
-    # Edit resolutions and n_cycles here for the full 3.7 spec run.
-    main(resolutions=(256, 512), n_cycles=15)
+    # Full resolution sweep as requested by the user
+    main(resolutions=(256, 512, 1024, 2048), n_cycles=50)
