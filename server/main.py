@@ -46,7 +46,7 @@ async def root():
     }
 
 if os.path.isdir(_client_dir):
-    app.mount("/client", StaticFiles(directory=_client_dir), name="client")
+    app.mount("/", StaticFiles(directory=_client_dir), name="client")
 
 
 if __name__ == "__main__":
