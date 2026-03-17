@@ -11,7 +11,7 @@ class TerrainRequest(BaseModel):
     
     # Basic settings
     seed: int = Field(default=42, description="Random seed for reproducible generation. Same seed + same settings = same terrain.")
-    size: int = Field(default=256, ge=32, le=1024, description="Resolution of the terrain (width & height). Must be between 32 and 1024.")
+    size: int = Field(default=256, ge=32, le=2048, description="Resolution of the terrain (width & height). Must be between 32 and 2048.")
     
     # Noise settings
     noise_algorithm: Literal["wave", "harmonic", "perlin", "simplex"] = Field(
