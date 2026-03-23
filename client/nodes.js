@@ -1,5 +1,11 @@
 // Register LiteGraph Nodes for Terrain Generation
 (function() {
+    if (LiteGraph.clearRegisteredTypes) {
+        LiteGraph.clearRegisteredTypes();
+    } else {
+        LiteGraph.registered_node_types = {};
+    }
+    
     function mergeConfig(base, addition) {
         return Object.assign({}, base, addition);
     }
