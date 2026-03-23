@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+import os
+
+client_dir = os.path.dirname(os.path.abspath(__file__))
+
+index_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,8 +12,8 @@
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litegraph.js/css/litegraph.css">
-    <script src="https://cdn.jsdelivr.net/npm/litegraph.js/build/litegraph.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/litegraph.js/0.7.12/css/litegraph.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/litegraph.js/0.7.12/litegraph.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,29 +45,11 @@
                 <span class="logo-text">3D TerrainGen Studio</span>
             </div>
             <div class="header-subtitle">Interactive Node-Based Generator</div>
-
         </header>
 
         <div class="main-content">
             <!-- Node Graph Editor Area -->
             <div class="node-editor-container">
-                <div class="dropdown" style="position: absolute; top: 15px; left: 15px; z-index: 100;">
-                    <style>
-                        .dropdown:hover .dropdown-content { display: block !important; }
-                        .dropdown-item { display: block; padding: 10px 16px; color: var(--text-primary); text-decoration: none; font-size: 13px; transition: background 0.2s; cursor: pointer; border: none; background: none; width: 100%; text-align: left; }
-                        .dropdown-item:hover { background: rgba(255,255,255,0.1); }
-                        .dropdown-category { padding: 8px 12px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text-muted); background: rgba(0,0,0,0.4); letter-spacing: 0.05em; margin: 0; }
-                    </style>
-                    <button class="btn-export" style="padding: 8px 16px; background: rgba(30,30,30,0.8); backdrop-filter: blur(4px); cursor: pointer; border: 1px solid var(--border-color); color: #fff; display: flex; align-items: center; gap: 6px;">
-                        <span style="font-size: 16px;">☰</span> Menu
-                    </button>
-                    <div class="dropdown-content" style="display: none; position: absolute; top: calc(100% + 5px); left: 0; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; min-width: 180px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.5);">
-                        <div class="dropdown-category">Export Terrain</div>
-                        <button class="dropdown-item" id="exportOBJ">📦 OBJ Mesh</button>
-                        <button class="dropdown-item" id="exportRAW">🗺️ RAW (Unity)</button>
-                        <button class="dropdown-item" id="exportPNG">🖼️ PNG Maps</button>
-                    </div>
-                </div>
                 <canvas id="litegraphCanvas"></canvas>
             </div>
 
@@ -74,7 +60,6 @@
                     <div class="viewport-overlay" id="viewportOverlay">
                         <p>Generate terrain from the Node Graph to view it here.</p>
                     </div>
-                    <div id="statusIndicator" style="position: absolute; bottom: 16px; right: 16px; background: rgba(20,20,20,0.85); padding: 8px 16px; border-radius: 8px; font-size: 13px; color: #4ade80; border: 1px solid rgba(74,222,128,0.3); pointer-events: none; opacity: 0; transition: opacity 0.3s; z-index: 10;"></div>
                 </div>
 
                 <section class="output-maps" style="flex: 1;">
@@ -95,7 +80,15 @@
                     </div>
                 </section>
                 
-
+                <!-- Export Section -->
+                <section class="control-section export-section" id="exportSection" style="display: none; padding: 15px; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color); flex-shrink: 0;">
+                    <h3 class="section-title">Export Options</h3>
+                    <div class="export-buttons" style="flex-direction: row; display: flex; gap: 10px;">
+                        <button id="exportOBJ" class="btn-export" title="For Blender, Unity, Godot">📦 OBJ Mesh</button>
+                        <button id="exportRAW" class="btn-export" title="For Unity Terrain">🗺️ RAW (Unity)</button>
+                        <button id="exportPNG" class="btn-export" title="Heightmap + Normal Map">🖼️ PNG Maps</button>
+                    </div>
+                </section>
             </main>
         </div>
     </div>
@@ -108,3 +101,9 @@
     <script src="app.js"></script>
 </body>
 </html>
+"""
+
+with open(os.path.join(client_dir, "index.html"), "w", encoding="utf-8") as f:
+    f.write(index_html)
+
+print("Created index.html")

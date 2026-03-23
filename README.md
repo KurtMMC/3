@@ -1,6 +1,6 @@
 # Terrain Generation Studio
 
-A procedural terrain generation tool with a Python FastAPI backend and a vanilla JavaScript frontend.
+A procedural terrain generation tool with a Python FastAPI backend and a new **visual Node-Based** interactive JavaScript frontend.
 
 ## Prerequisites
 
@@ -21,26 +21,17 @@ A procedural terrain generation tool with a Python FastAPI backend and a vanilla
 
 ## Running the Application
 
-You need to run the **Backend** and **Frontend** in separate terminal windows.
+The FastAPI server is configured to serve both the API and the interactive Node-Based frontend simultaneously!
 
-### 1. Backend Server (API)
-
-In the root directory (`d:\Projects\3`), run:
+1. Open a terminal in the project root directory and start the server:
 
 ```bash
 python -m server.main
 ```
-The API will start at `http://localhost:8000`.
 
-### 2. Frontend Client
+2. Open your browser to [http://localhost:8000](http://localhost:8000) to access the visual generation studio.
 
-Open a **new terminal**, navigate to the client folder, and start a simple HTTP server:
-
-```bash
-cd client
-python -m http.server 3000
-```
-Then open your browser to [http://localhost:3000](http://localhost:3000).
+The interactive Swagger UI for testing API endpoints directly is still available at [http://localhost:8000/docs](http://localhost:8000/docs).
 
 ## Features
 
