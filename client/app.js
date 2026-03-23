@@ -14,6 +14,7 @@ class App {
     init() {
         this.viewer = new TerrainViewer('renderCanvas');
         this.bindExportButtons();
+        this.bindFullscreen();
         this.initNodeEditor();
         console.log('3D TerrainGen Studio initialized (Node-Based)');
     }
@@ -79,6 +80,32 @@ class App {
             document.getElementById('importGraphFile').click();
         });
         document.getElementById('importGraphFile')?.addEventListener('change', (e) => this.loadGraph(e));
+    }
+
+    bindFullscreen() {
+        const btn = document.getElementById('btnFullscreen');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const container = document.querySelector('.viewport-container');
+                if (!document.fullscreenElement) {
+                    if (container.requestFullscreen) {
+                        container.requestFullscreen().catch(err => console.error(err));
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            });
+            document.addEventListener('fullscreenchange', () => {
+                if (document.fullscreenElement) {
+                    btn.innerHTML = '🗗 Exit Fullscreen';
+                } else {
+                    btn.innerHTML = '⛶ Fullscreen';
+                }
+                setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+            });
+        }
     }
 
     async generateTerrainFromNode(params) {

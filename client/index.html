@@ -69,8 +69,10 @@
 
             <!-- Viewport Area -->
             <main class="viewport-area">
-                <div class="viewport-container" style="flex: 2;">
+                <div class="viewport-container" style="flex: 2; position: relative;">
                     <canvas id="renderCanvas"></canvas>
+                    <button id="btnFullscreen" style="position: absolute; top: 16px; right: 16px; background: rgba(20,20,20,0.6); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; z-index: 15; transition: background 0.2s;">⛶ Fullscreen</button>
+                    <style>#btnFullscreen:hover { background: rgba(40,40,40,0.8) !important; border-color: var(--accent-primary) !important; }</style>
                     <div class="viewport-overlay" id="viewportOverlay">
                         <p>Generate terrain from the Node Graph to view it here.</p>
                     </div>
